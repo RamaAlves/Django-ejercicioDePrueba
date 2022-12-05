@@ -1,0 +1,49 @@
+{% extends 'base_generic.html' %}
+{% block title %} 
+Listado de productos 
+{% endblock %}
+{% block content %}
+    <h1>Productos:</h1>
+    <br>
+    <ul>
+        {% for p in products %}
+            <li>
+                <p>{{p.title}}</p>
+                <a class="link" href="{% url 'gestion:show' p.id %}">More info</a>
+                <a class="link" href="{% url 'gestion:update' p.id %}">Update</a>
+                <a class="link" href="{% url 'gestion:delete' p.id %}">Delete</a>
+            </li>
+            <hr>
+        {% endfor %}
+    </ul>
+    <button>
+        <a class="link" href="{% url 'gestion:create' %}">Add new product</a>
+    </button>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center mt-5"> 
+            {% if products.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ products.previous_page_number }}">previous</a>
+                </li>
+            {% endif %}
+            
+            {% for i in products.paginator.page_range %}
+                {% if i == products.number %}
+                    <li class="page-item active">
+                        <a class="page-link" href="#">{{i}}</a>
+                    </li>
+                {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{i}}">{{i}}</a>
+                </li>
+                {% endif %}
+            {% endfor %}
+            
+            {% if products.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ products.next_page_number }}">next</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endblock %}

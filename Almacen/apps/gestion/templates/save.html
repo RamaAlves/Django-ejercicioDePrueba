@@ -1,0 +1,18 @@
+{% extends 'base_generic.html'%}
+
+{% block title %} 
+Add or update
+{% endblock %}
+
+{% block content%}
+    <h1>Add new product / Update product</h1>
+    <form method="POST">
+        {% csrf_token %}
+
+        {{form}}
+
+        <button type="submit">Submit</button>
+    </form>
+    <br>
+    <a class="link" href="{% url 'gestion:index' %}?page=1">Inicio</a>
+{% endblock %}
